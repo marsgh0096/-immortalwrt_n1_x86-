@@ -11,49 +11,51 @@
 - ✅ SSH支持
 - ✅ 基础网络功能
 
-### 旁路由版本
+### x86_64版本 (软路由)
 - ✅ 基础immortalwrt系统
-- ✅ 晶晨宝盒
 - ✅ IPv6完整支持
 - ✅ MosDNS - 高性能DNS解析
-- ✅ PassWall - 科学上网工具
-- ✅ msd_lite IPTV组播
+- ✅ PassWall 2 - 科学上网工具
+- ✅ ZeroTier - 内网穿透
+- ✅ msd_lite - IPTV组播
+- ✅ Argon 主题 - 现代美观界面
 
 ## ⚙️ 自定义配置
 
 ### 修改默认设置
 编辑`scripts/diy-part2.sh`可以修改：
-- 默认IP地址
-- 主机名
-- 时区设置
-- 默认密码等
+- 默认IP地址: 192.168.2.3
+- 主机名: N1-OpenWrt (脚本中统一设置)
+- 时区设置: Asia/Shanghai (CST-8)
+- 默认密码: 无 (首次登录后请设置密码)
 
 ### 添加/删除软件包
 编辑对应的配置文件：
-- `configs/n1-minimal.config` - 精简版
-- `configs/n1-bypass.config` - 旁路由版本
+- `configs/n1-minimal.config` - N1精简版
+- `configs/n1-bypass.config` - N1旁路由版本
+- `configs/x86_64.config` - x86_64软路由版本
 
 ### 添加新的feeds源
 编辑`scripts/diy-part1.sh`添加新的软件源。
 
-## 🔧 编译依赖
+## 🔧 编译说明
 
-本项目基于以下开源项目：
-- [ImmortalWrt](https://github.com/immortalwrt/immortalwrt) - 源码仓库
-- [unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) - 打包工具
-- [ophub/luci-app-amlogic](https://github.com/ophub/luci-app-amlogic) - 晶晨宝盒
+本项目基于 [ImmortalWrt](https://github.com/immortalwrt/immortalwrt) 源码仓库 (openwrt-24.10 分支)。
 
 ## 📖 安装说明
 
 1. 下载编译好的固件（.img文件）
 2. 使用balenaEtcher、Rufus等工具将固件写入U盘
-3. 斐讯N1插入U盘，从U盘启动
-4. 使用晶晨宝盒功能安装到内置存储
+3. 软路由从U盘启动
+4. 默认登录信息：
+   - 默认IP地址：192.168.2.3
+   - 默认用户名：root
+   - 默认密码：无
 
 ## ⚠️ 注意事项
 
-1. 默认IP地址：192.168.2.7
-4. 默认用户名：root，默认密码：无（首次登录后请设置密码）
+1. x86_64 版本固件已移除晶晨宝盒（Amlogic）相关应用，仅保留在 N1 版本中。
+2. 推荐使用 Argon 主题获得更好的视觉体验。
 
 ## 🔄 更新说明
 

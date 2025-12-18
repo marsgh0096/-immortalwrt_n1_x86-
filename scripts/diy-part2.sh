@@ -5,7 +5,7 @@
 #
 
 # 修改默认IP
-sed -i 's/192.168.1.1/192.168.1.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.2.3/g' package/base-files/files/bin/config_generate
 
 # 修改主机名字
 sed -i 's/OpenWrt/N1-OpenWrt/g' package/base-files/files/bin/config_generate
