@@ -14,6 +14,7 @@
 ### x86_64版本 (软路由)
 - ✅ 基础immortalwrt系统
 - ✅ IPv6完整支持
+- ✅ iStore - 应用商店
 - ✅ MosDNS - 高性能DNS解析
 - ✅ PassWall 2 - 科学上网工具
 - ✅ ZeroTier - 内网穿透
@@ -25,7 +26,7 @@
 ### 修改默认设置
 编辑`scripts/diy-part2.sh`可以修改：
 - 默认IP地址: 192.168.2.3
-- 主机名: N1-OpenWrt (脚本中统一设置)
+- 主机名: ImmortalWrt
 - 时区设置: Asia/Shanghai (CST-8)
 - 默认密码: 无 (首次登录后请设置密码)
 
