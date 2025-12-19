@@ -8,7 +8,13 @@
 sed -i 's/192.168.1.1/192.168.2.3/g' package/base-files/files/bin/config_generate
 
 # 修改主机名字
-sed -i 's/OpenWrt/ImmortalWrt/g' package/base-files/files/bin/config_generate
+if grep -q "CONFIG_TARGET_x86=y" .config; then
+    sed -i 's/OpenWrt/ImmortalWrt/g' package/base-files/files/bin/config_generate
+elif grep -q "CONFIG_TARGET_armvirt=y" .config; then
+    sed -i 's/OpenWrt/N1-OpenWrt/g' package/base-files/files/bin/config_generate
+else
+    sed -i 's/OpenWrt/ImmortalWrt/g' package/base-files/files/bin/config_generate
+fi
 
 # 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
 sed -i 's/root:::0:99999:7:::/root::0:0:99999:7:::/g' package/base-files/files/etc/shadow
