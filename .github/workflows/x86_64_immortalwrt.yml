@@ -93,9 +93,11 @@ jobs:
     - name: 加载自定义配置
       working-directory: /workdir
       run: |
-        [ -e files ] && mv files openwrt/files || true
-        [ -e $CONFIG_FILE_PC ] && mv $CONFIG_FILE_PC openwrt/.config || true
-        [ -e $DIY_P2_SH ] && chmod +x $DIY_P2_SH && cd openwrt && $GITHUB_WORKSPACE/$DIY_P2_SH || true
+        [ -e "$GITHUB_WORKSPACE/files" ] && mkdir -p openwrt/files && cp -a "$GITHUB_WORKSPACE/files/." openwrt/files/ || true
+        cp "$GITHUB_WORKSPACE/$CONFIG_FILE_PC" openwrt/.config
+        chmod +x "$GITHUB_WORKSPACE/$DIY_P2_SH"
+        cd openwrt
+        "$GITHUB_WORKSPACE/$DIY_P2_SH"
 
     - name: 下载配置文件
       id: package

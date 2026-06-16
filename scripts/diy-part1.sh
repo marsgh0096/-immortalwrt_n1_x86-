@@ -6,8 +6,8 @@
 
 # 添加额外的feeds源
 echo >> feeds.conf.default
-echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
-echo 'src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
+echo 'src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall2' >>feeds.conf.default
+echo 'src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages' >>feeds.conf.default
 echo 'src-git mosdns https://github.com/sbwml/luci-app-mosdns' >>feeds.conf.default
 echo 'src-git istore https://github.com/linkease/istore;main' >> feeds.conf.default
 
