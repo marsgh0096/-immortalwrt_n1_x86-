@@ -41,6 +41,20 @@ for wf, config_vars in workflow_expectations.items():
         if re.search(pattern, wf_text):
             errors.append(f"{wf} still checks config/script relative to /workdir")
 
+# ImmortalWrt 24.10 currently builds golang/host 1.23.x. The rolling mosdns
+# feed has v2dat patches that can require Go 1.25; keep the local DIY
+# compatibility guard so the workflow does not break when that feed drifts.
+diy2 = (ROOT / "scripts" / "diy-part2.sh").read_text()
+required_compat_markers = [
+    "v2dat Go 1.23 compatibility",
+    "feeds/mosdns/v2dat/patches/102-perf-unpack-Use-memory-mapping-to-reduce-memory-usag.patch",
+    "+go 1.25.0",
+    "golang.org/x/sys v0.35.0",
+]
+for marker in required_compat_markers:
+    if marker not in diy2:
+        errors.append(f"scripts/diy-part2.sh missing mosdns v2dat Go 1.23 compatibility marker: {marker}")
+
 if errors:
     print("CI config validation failed:")
     for e in errors:
