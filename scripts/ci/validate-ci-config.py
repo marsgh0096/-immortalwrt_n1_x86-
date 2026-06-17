@@ -48,8 +48,8 @@ diy2 = (ROOT / "scripts" / "diy-part2.sh").read_text()
 required_compat_markers = [
     "v2dat Go 1.23 compatibility",
     "feeds/mosdns/v2dat/patches/102-perf-unpack-Use-memory-mapping-to-reduce-memory-usag.patch",
-    "+go 1.25.0",
-    "golang.org/x/sys v0.35.0",
+    "Removing v2dat Go 1.25-only patch for Go 1.23 compatibility",
+    'rm -f "$V2DAT_INCOMPAT_PATCH"',
 ]
 for marker in required_compat_markers:
     if marker not in diy2:

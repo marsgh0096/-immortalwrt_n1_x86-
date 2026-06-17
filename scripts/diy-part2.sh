@@ -28,30 +28,14 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 
 
 # Keep mosdns v2dat Go 1.23 compatibility for ImmortalWrt/OpenWrt 24.10.
-# The rolling sbwml/luci-app-mosdns feed currently patches v2dat to require
-# Go 1.25, while openwrt-24.10 provides golang/host 1.23.x. Patch the feed
-# patch back to Go 1.23-compatible module metadata after feeds are installed.
-V2DAT_COMPAT_PATCH="feeds/mosdns/v2dat/patches/102-perf-unpack-Use-memory-mapping-to-reduce-memory-usag.patch"
-if [ -f "$V2DAT_COMPAT_PATCH" ]; then
-    echo "Applying v2dat Go 1.23 compatibility patch"
-    python3 - "$V2DAT_COMPAT_PATCH" <<'PY'
-from pathlib import Path
-import sys
-
-path = Path(sys.argv[1])
-text = path.read_text()
-text = text.replace('+go 1.25.0', '+go 1.23')
-text = text.replace(
-    'golang.org/x/sys v0.42.0 h1:omrd2nAlyT5ESRdCLYdm3+fMfNFE/+Rf4bDIQImRJeo=',
-    'golang.org/x/sys v0.35.0 h1:vz1N37gP5bs89s7He8XuIYXpyY0+QlsKmzipCbUtyxI=',
-)
-text = text.replace(
-    'golang.org/x/sys v0.42.0/go.mod h1:4GL1E5IUh+htKOUEOaiffhrAeqysfVGipDYzABqnCmw=',
-    'golang.org/x/sys v0.35.0/go.mod h1:BJP2sWEmIv4KK5OTEluFJCKSidICx8ciO85XgH3Ak8k=',
-)
-text = text.replace('golang.org/x/sys v0.42.0', 'golang.org/x/sys v0.35.0')
-path.write_text(text)
-PY
+# The rolling sbwml/luci-app-mosdns feed currently includes a v2dat mmap
+# performance patch that changes go.mod to Go 1.25, while openwrt-24.10
+# provides golang/host 1.23.x. Drop only that optional perf patch; the
+# remaining v2dat patches build successfully with Go 1.23.
+V2DAT_INCOMPAT_PATCH="feeds/mosdns/v2dat/patches/102-perf-unpack-Use-memory-mapping-to-reduce-memory-usag.patch"
+if [ -f "$V2DAT_INCOMPAT_PATCH" ]; then
+    echo "Removing v2dat Go 1.25-only patch for Go 1.23 compatibility"
+    rm -f "$V2DAT_INCOMPAT_PATCH"
 fi
 
 # 替换opkg源为清华源
